@@ -20,6 +20,7 @@
                 <th>Description</th>
                 <th>Category</th>
                 <th>User</th>
+                <th>Action</th>
             </tr>
         </thead>
         <tbody>
@@ -30,6 +31,14 @@
                     <td>{{ $post->description }}</td>
                     <td>{{ $post->category }}</td>
                     <td>{{ $post->user_id }}</td>
+                    <td>
+                        <a href="{{ route('posts.edit', $post->id) }}">Edit</a>
+                        <form action="{{ route('posts.destroy', $post->id) }}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit">{{ __('Delete') }}</button>
+                        </form>
+                    </td>
                 </tr>
             @endforeach
         </tbody>
