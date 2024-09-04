@@ -7,25 +7,43 @@
 <body>
     <h2>Create new post</h2>
     <hr>
-    <form action="" method="post">
+    <form action="{{ route('posts.store') }}" method="post" enctype="multipart/form-data">
+        @csrf
         <div>
-            <label for="">Name</label>
+            <label for="">Name: </label>
             <input type="text" name="name">
+            @error('name')
+                <span class="text-danger">{{ $message }}</span>
+            @enderror
         </div>
         <div>
-            <label for=""></label>
+            <label for="">Description: </label>
             <input type="text" name="description">
+            @error('description')
+                <span class="text-danger">{{ $message }}</span>
+            @enderror
         </div>
         <div>
-            <label for="">Name</label>
+            <label for="">Category: </label>
             <input type="text" name="category">
+            @error('category')
+                <span class="text-danger">{{ $message }}</span>
+            @enderror
         </div>
         <div>
-            <label for=""></label>
-            <select name="" id="">
+            <label for="">User: </label>
+            <select name="user_id" id="">
                 <option value="">User</option>
-                <option value=""></option>
+                @foreach($users as $user)
+                    <option value="{{ $user->id }}">{{ $user->name }}</option>
+                @endforeach
             </select>
+            @error('user_id')
+                <span class="text-danger">{{ $message }}</span>
+            @enderror
+        </div>
+        <div>
+            <button type="submit">Save</button>
         </div>
     </form>
 </body>

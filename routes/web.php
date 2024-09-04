@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Post\PostController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +14,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::controller(PostController::class)
+    ->prefix('/posts')
+    ->as('posts.')
+    ->group(function(){
+    Route::get('/', 'index')->name('index');
+    Route::get('create','create')->name('create');
+    Route::post('store', 'store')->name('store');
 });
